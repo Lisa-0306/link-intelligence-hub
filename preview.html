@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Link Intelligence Hub Preview</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f8faf9;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #667085;
+        --border: #d9e1de;
+        --primary: #0f766e;
+        --soft: #edf4f2;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #101418;
+          --panel: #151b20;
+          --text: #edf2f7;
+          --muted: #a7b0ba;
+          --border: #2a333b;
+          --primary: #34d399;
+          --soft: #1d272d;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      .shell {
+        display: flex;
+        min-height: 100vh;
+      }
+      aside {
+        width: 248px;
+        border-right: 1px solid var(--border);
+        background: var(--panel);
+        padding: 22px 16px;
+      }
+      .brand {
+        margin-bottom: 28px;
+        font-weight: 700;
+      }
+      .brand span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 4px;
+      }
+      nav button {
+        width: 100%;
+        border: 0;
+        border-radius: 7px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        display: block;
+        font: inherit;
+        margin-bottom: 6px;
+        padding: 10px 12px;
+        text-align: left;
+      }
+      nav button.active,
+      nav button:hover {
+        background: var(--soft);
+        color: var(--text);
+      }
+      main {
+        flex: 1;
+        min-width: 0;
+      }
+      header {
+        border-bottom: 1px solid var(--border);
+        background: var(--panel);
+        padding: 18px 24px;
+      }
+      header h1 {
+        font-size: 22px;
+        margin: 0;
+      }
+      header p {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 6px 0 0;
+      }
+      .content {
+        padding: 24px;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 18px;
+      }
+      textarea,
+      select,
+      input {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        background: var(--bg);
+        color: var(--text);
+        font: inherit;
+        padding: 11px 12px;
+      }
+      textarea {
+        min-height: 170px;
+        resize: vertical;
+      }
+      .row {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: 1fr 1fr auto;
+        margin-top: 12px;
+      }
+      .primary {
+        align-items: center;
+        background: var(--primary);
+        border: 0;
+        border-radius: 7px;
+        color: #fff;
+        cursor: pointer;
+        display: inline-flex;
+        font: inherit;
+        font-weight: 650;
+        justify-content: center;
+        min-width: 124px;
+        padding: 11px 16px;
+      }
+      h2 {
+        font-size: 16px;
+        margin: 26px 0 12px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border-bottom: 1px solid var(--border);
+        font-size: 14px;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 650;
+      }
+      .pill {
+        background: var(--soft);
+        border-radius: 5px;
+        color: var(--muted);
+        display: inline-block;
+        font-size: 12px;
+        padding: 5px 8px;
+      }
+      .grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .hidden {
+        display: none;
+      }
+      @media (max-width: 820px) {
+        aside {
+          display: none;
+        }
+        .row,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <div class="brand">Link Intelligence <span>Hub 本地预览</span></div>
+        <nav>
+          <button class="active" data-view="workbench">工作台</button>
+          <button data-view="tasks">任务</button>
+          <button data-view="prompts">Prompts</button>
+          <button data-view="settings">设置</button>
+        </nav>
+      </aside>
+      <main>
+        <section id="workbench">
+          <header>
+            <h1>工作台</h1>
+            <p>粘贴链接、正文，或上传音频/视频；正式版会自动识别、抓取、转写和总结。</p>
+          </header>
+          <div class="content">
+            <div class="card">
+              <textarea placeholder="粘贴 YouTube / X / 微信 / 网页链接，或直接粘贴一段文本..."></textarea>
+              <div class="row">
+                <input type="file" />
+                <select>
+                  <option>投研摘要模板</option>
+                  <option>AI 日报模板</option>
+                  <option>半导体日报模板</option>
+                  <option>YouTube 视频总结模板</option>
+                </select>
+                <button class="primary" onclick="addDemoTask()">开始处理</button>
+              </div>
+            </div>
+            <h2>最近任务</h2>
+            <div class="card">
+              <table>
+                <tbody id="recentTasks">
+                  <tr>
+                    <td>示例网页：AI 芯片市场更新</td>
+                    <td>webpage</td>
+                    <td><span class="pill">completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>示例 YouTube 视频</td>
+                    <td>youtube</td>
+                    <td><span class="pill">pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section id="tasks" class="hidden">
+          <header>
+            <h1>任务列表</h1>
+            <p>正式版会从 SQLite 读取任务状态。</p>
+          </header>
+          <div class="content">
+            <div class="card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>标题</th>
+                    <th>类型</th>
+                    <th>状态</th>
+                    <th>转写</th>
+                    <th>摘要</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AI 芯片市场更新</td>
+                    <td>webpage</td>
+                    <td><span class="pill">completed</span></td>
+                    <td>否</td>
+                    <td>是</td>
+                  </tr>
+                  <tr>
+                    <td>会议录音</td>
+                    <td>audio_file</td>
+                    <td><span class="pill">transcribing</span></td>
+                    <td>处理中</td>
+                    <td>否</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section id="prompts" class="hidden">
+          <header>
+            <h1>Prompt 管理</h1>
+            <p>正式版会读取并保存 /prompts 里的 Markdown 模板。</p>
+          </header>
+          <div class="content grid">
+            <div class="card">
+              <p>AI 日报模板</p>
+              <p>半导体日报模板</p>
+              <p>Web3 日报模板</p>
+              <p>投研摘要模板</p>
+            </div>
+            <div class="card">
+              <textarea>请将输入内容整理为投研摘要，输出中文 Markdown...</textarea>
+            </div>
+          </div>
+        </section>
+        <section id="settings" class="hidden">
+          <header>
+            <h1>设置</h1>
+            <p>敏感配置写入 .env，不提交到 GitHub。</p>
+          </header>
+          <div class="content">
+            <div class="card grid">
+              <div><strong>OpenAI API Key</strong><p class="muted">通过 .env 配置</p></div>
+              <div><strong>Database</strong><p class="muted">file:./data/app.sqlite</p></div>
+              <div><strong>Storage</strong><p class="muted">./storage</p></div>
+              <div><strong>Backup</strong><p class="muted">./backups</p></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      const buttons = document.querySelectorAll("nav button");
+      const views = document.querySelectorAll("main > section");
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          buttons.forEach((item) => item.classList.remove("active"));
+          views.forEach((view) => view.classList.add("hidden"));
+          button.classList.add("active");
+          document.getElementById(button.dataset.view).classList.remove("hidden");
+        });
+      });
+      function addDemoTask() {
+        const row = document.createElement("tr");
+        row.innerHTML = "<td>新任务已加入预览</td><td>auto</td><td><span class='pill'>pending</span></td>";
+        document.getElementById("recentTasks").prepend(row);
+      }
+    </script>
+  </body>
+</html>
