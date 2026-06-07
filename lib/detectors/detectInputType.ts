@@ -27,8 +27,17 @@ export function detectInputType(input: string, fileName?: string): SourceType {
 
   if (host.includes("youtube.com") || host.includes("youtu.be")) return "youtube";
   if (host === "x.com" || host.endsWith(".x.com") || host.includes("twitter.com")) return "twitter";
+  if (
+    host.includes("channels.weixin.qq.com") ||
+    host.includes("finder.video.qq.com") ||
+    host.includes("weixin110.qq.com") ||
+    full.includes("/finder") ||
+    full.includes("video")
+  ) {
+    return "wechat_video";
+  }
   if (host.includes("mp.weixin.qq.com")) return "wechat_article";
-  if (full.includes("channels.weixin.qq.com") || full.includes("weixin.qq.com")) return "wechat_video";
+  if (host.includes("weixin.qq.com")) return "wechat_video";
   if (audioExtensions.test(url.pathname)) return "audio_file";
   if (videoExtensions.test(url.pathname)) return "video_file";
 
